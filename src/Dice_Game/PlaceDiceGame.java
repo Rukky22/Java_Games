@@ -5,9 +5,6 @@ import java.util.Random;
 public class PlaceDiceGame {
 	private Random random = new Random();
 	
-	private enum status {
-		CONTINUE, WON, LOST
-	}
 	
 	private static final int MONKEY_TAIL = 2;
 	private static final int TRIPPLE = 3;
@@ -17,43 +14,43 @@ public class PlaceDiceGame {
 	
 	public void playGame() {
 		int storedPoint = 0;
-		status gameStatus;
+		STATUS gameSTATUS;
 		
 		int sumOfDice = rollDice();
 		switch(sumOfDice) {
 		case SEVILLY:
 		case MY_VENLY:
-			gameStatus = status.WON; // If a player has 7 or 11 rolls in first roll
+			gameSTATUS = STATUS.WON; // If a player has 7 or 11 rolls in first roll
 			break;
 			
 		case MONKEY_TAIL:
 		case TRIPPLE:
 		case BLACK_BOX:
-			gameStatus = status.LOST; // If a player has either of 2, 3 or 12 in his/her first roll
+			gameSTATUS = STATUS.LOST; // If a player has either of 2, 3 or 12 in his/her first roll
 			break;
 			
 		default:
-			gameStatus = status.CONTINUE; // Play didn't win nor lost the game has to continue
+			gameSTATUS = STATUS.CONTINUE; // Play didn't win nor lost the game has to continue
 			storedPoint = sumOfDice;
 			System.out.printf("Current Point is %d\n", storedPoint);
 			break;
 		}
-		while(gameStatus == status.CONTINUE) {
+		while(gameSTATUS == STATUS.CONTINUE) {
 			sumOfDice = rollDice();
-			//Determine gamestatus
+			//Determine gameSTATUS
 			if(sumOfDice == storedPoint) {
-				gameStatus = status.WON;
+				gameSTATUS = STATUS.WON;
 			}
 			else if (sumOfDice == SEVILLY) {
-				gameStatus = status.LOST;
+				gameSTATUS = STATUS.LOST;
 			}
 			
 		}
 			// Display win or lost message to user
-			if(gameStatus == status.WON) {
+			if(gameSTATUS == STATUS.WON) {
 				System.out.println("Player wins");
 			}
-			else if(gameStatus == status.LOST) {
+			else if(gameSTATUS == STATUS.LOST) {
 				System.out.println("Player lost");
 			}
 			else {
